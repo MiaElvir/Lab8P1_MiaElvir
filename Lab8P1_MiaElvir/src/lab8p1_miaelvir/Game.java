@@ -49,7 +49,7 @@ public class Game {
     public void nextGen(){
         int cont1 = 0; 
         int [][] temp = new int [10][10]; 
-        
+        coordenadas.clear(); 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 
@@ -73,11 +73,13 @@ public class Game {
                                 matriz_sig[i][j]=0; 
                             }else if (cont1==2){
                                 matriz_sig[i][j]=1; 
+                                coordenadas.add(i + ":" + j);
                             }
-                            this.coordenadas.add(Integer.toString(i)+":"+Integer.toString(j));
+                            
                         }else if(this.matriz_actual[i][j] == 0){
                             if (cont1 == 3){
-                                matriz_sig[i][j]=1;  
+                                matriz_sig[i][j]=1; 
+                                coordenadas.add(i + ":" + j);
                             }
                         }
                         cont1 = 0; 
@@ -134,13 +136,13 @@ public class Game {
         for (int i = 0; i < a.size(); i++) {
             System.out.print("["+a.get(i)+"]");
         }
-        
+        System.out.println("");
         for (int i = 0; i < a.size(); i++) {
             int x; 
             int y; 
             String coords = a.get(i); 
-            x = (int) coords.charAt(0) - '0'; 
-            y = (int) coords.charAt(2) - '0';    
+            x = (int) coords.charAt(0) - 48;
+            y = (int) coords.charAt(2) - 48;
             temp[x][y]=1; 
         }
         
