@@ -29,7 +29,7 @@ public class Lab8P1_MiaElvir {
                     int [][] matriz_actual = new int [10][10]; 
                     int [][] matriz_sig = new int [10][10]; 
                     ArrayList<String> coordenadas = new ArrayList <>(); 
-                    g.setCoordendas(coordenadas);
+                    g.setCoordenadas(coordenadas);
                     g.setMatriz_actual(GenMatrizActual(matriz_actual));
                     g.setMatriz_sig(matriz_sig);
                     g.setNum_rondas(num_rondas);
@@ -37,10 +37,6 @@ public class Lab8P1_MiaElvir {
                    
                     g.jugar(num_rondas);
                     
-
-
-
-
                     break; 
                     
             }//fin switch

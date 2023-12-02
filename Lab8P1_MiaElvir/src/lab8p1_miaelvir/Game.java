@@ -22,12 +22,12 @@ public class Game {
         this.num_rondas = num_rondas;
     }
 
-    public ArrayList<String> getCoordendas() {
+    public ArrayList<String> getCoordenadas() {
         return coordenadas;
     }
 
-    public void setCoordendas(ArrayList<String> coordendas) {
-        this.coordenadas = coordendas;
+    public void setCoordenadas(ArrayList<String> coordendas) {
+        this.coordenadas = coordenadas;
     }
 
     public int[][] getMatriz_actual() {
@@ -52,14 +52,37 @@ public class Game {
         
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                cont1 = 0;
+                
                 if(i==0 || j == 0 || j==9 || i == 9){
                      
                 }else{
                     int [] evaluar = {matriz_actual[i-1][j-1],matriz_actual[i-1][j],matriz_actual[i-1][j+1],matriz_actual[i][j-1],
                          matriz_actual[i][j+1],matriz_actual[i+1][j-1],matriz_actual[i+1][j],matriz_actual[i+1][j+1]};
-
-                    if (this.matriz_actual[i][j]==1){
+                    
+                    //un for donde hago lo de evaluar y abro if es == 1 entonces hacemos evaluaciones de los vecinos y luego un else con la evaluacion de los 0
+                    
+                        for (int k = 0; k < evaluar.length; k++) {
+                           if (evaluar[k] ==1){
+                                cont1++; 
+                            }
+                        }
+                        if(this.matriz_actual[i][j] == 1){
+                            if(cont1<2){
+                                matriz_sig[i][j]=0; 
+                            }else if(cont1>2){
+                                matriz_sig[i][j]=0; 
+                            }else if (cont1==2){
+                                matriz_sig[i][j]=1; 
+                            }
+                            this.coordenadas.add(Integer.toString(i)+":"+Integer.toString(j));
+                        }else if(this.matriz_actual[i][j] == 0){
+                            if (cont1 == 3){
+                                matriz_sig[i][j]=1;  
+                            }
+                        }
+                        cont1 = 0; 
+                    
+                    /*if (this.matriz_actual[i][j]==1){
                         
                         for (int k = 0; k < evaluar.length; k++) {
                             if(evaluar[k]==1){
@@ -67,13 +90,18 @@ public class Game {
                             }
                         }
                         //System.out.println("0 y " + Integer.toString(cont1) + " i: " + Integer.toString(i) + " j: " + Integer.toString(j));
-                        if(cont1<2 || cont1>3){
+                        if(cont1<2){
                             matriz_sig[i][j]=0;    
+                             
+                        }else if(cont1>2){
+                            matriz_sig[i][j]=0;
+                             
                         }else{
                             matriz_sig[i][j]=1;
-                            this.coordenadas.add(Integer.toString(j)+":"+Integer.toString(i));
+                            
+                           
                         } 
-                         
+                          this.coordenadas.add(Integer.toString(i)+":"+Integer.toString(j));
                         
                     }else{
                         for (int k = 0; k < evaluar.length; k++) {
@@ -84,22 +112,29 @@ public class Game {
                         //System.out.println("0 y " + Integer.toString(cont1) + " i: " + Integer.toString(i) + " j: " + Integer.toString(j));
                         if(cont1==3){
                             matriz_sig[i][j]=1; 
-                            this.coordenadas.add(Integer.toString(j)+":"+Integer.toString(i));
+                            
                         }
-                    }
+                        
+                    }*/
                      
-                    matriz_actual=matriz_sig; 
-                    matriz_sig=temp; 
+                    
                     
                 }
             }
         }
+        matriz_actual=matriz_sig; 
+        matriz_sig=temp; 
     
     }//nextgen
     
     public void print(ArrayList<String>a){
         int [][] temp = new int [10][10]; 
-        //System.out.println(a);
+        
+        System.out.println("Coordenadas de celdas vivas");
+        for (int i = 0; i < a.size(); i++) {
+            System.out.print("["+a.get(i)+"]");
+        }
+        
         for (int i = 0; i < a.size(); i++) {
             int x; 
             int y; 
@@ -108,6 +143,8 @@ public class Game {
             y = (int) coords.charAt(2) - '0';    
             temp[x][y]=1; 
         }
+        
+       
         for (int j = 0; j < 10; j++) {
                 for (int k = 0; k < 10; k++) {
                     System.out.print("["+temp[j][k]+"]");
